@@ -15,7 +15,10 @@
   <!-- ===== VIEW: Welcome ===== -->
   <div class="view active fade-in" id="view-welcome">
     <div class="app-header">
-      <div class="logo">&#x1F4CB;</div>
+      <div class="brand-row">
+        <img src="Assets/loge.jpg" alt="会泽筑梦高考教育" class="brand-logo" onerror="this.style.display='none'">
+        <span class="brand-name">会泽筑梦高考教育</span>
+      </div>
       <h1>2026年高考志愿<br>家庭决策体检问卷</h1>
       <div class="subtitle">数据驱动 &middot; 科学决策 &middot; 家庭共识</div>
     </div>
@@ -32,7 +35,7 @@
     <button class="btn btn-primary" id="btn-start" style="margin-top:8px;">
       开始填写 &middot; 家长先填
     </button>
-    <div class="app-footer">问卷内容仅供志愿决策参考，不构成报考建议</div>
+    <div class="app-footer">会泽筑梦高考教育 &middot; 问卷内容仅供志愿决策参考</div>
   </div>
 
   <!-- ===== VIEW: Parent ===== -->
@@ -44,7 +47,6 @@
 
     <form id="parent-form" onsubmit="return false;">
 
-      <!-- 模块一 -->
       <div class="card">
         <div class="form-label">&#x1F4CA; 模块一：家庭抗风险能力评测 <span class="tag tag-parent">家长填</span></div>
 
@@ -91,7 +93,6 @@
         </div>
       </div>
 
-      <!-- 模块二 -->
       <div class="card">
         <div class="form-label">&#x1F4B0; 模块二：财务与学历支撑底线评测 <span class="tag tag-parent">家长填</span></div>
 
@@ -132,7 +133,6 @@
         </div>
       </div>
 
-      <!-- 模块五 (家长) -->
       <div class="card">
         <div class="form-label">&#x1F3AF; 模块五：意向专业初筛与顾虑</div>
 
@@ -193,7 +193,7 @@
         &#x1F4DA; <strong>模块三</strong>：学业能力与学科偏好评测<br>
         &#x1F9E0; <strong>模块四</strong>：感官与性格底线评测<br>
         &#x1F3AF; <strong>模块五</strong>：意向专业初筛与顾虑<br>
-        &#x1F52C; <strong>霍兰德职业倾向测评</strong>（36题）
+        &#x1F52C; <strong>多维度专业适配度阻断模型</strong>（36题）
       </p>
     </div>
     <button class="btn btn-success" id="btn-student-begin">
@@ -210,7 +210,6 @@
 
     <form id="student-form" onsubmit="return false;">
 
-      <!-- 模块三 -->
       <div class="card">
         <div class="form-label">&#x1F4DA; 模块三：学业能力与学科偏好评测 <span class="tag tag-student">学生填</span></div>
 
@@ -282,7 +281,6 @@
         </div>
       </div>
 
-      <!-- 模块四 -->
       <div class="card">
         <div class="form-label">&#x1F9E0; 模块四：感官与性格底线评测 <span class="tag tag-student">学生填</span></div>
 
@@ -315,7 +313,6 @@
         </div>
       </div>
 
-      <!-- 模块五 (学生) -->
       <div class="card">
         <div class="form-label">&#x1F3AF; 模块五：意向专业初筛与顾虑</div>
 
@@ -354,16 +351,16 @@
     </form>
 
     <button class="btn btn-accent" id="btn-student-submit">
-      进入霍兰德职业倾向测评 &#x2192;
+      进入多维度专业适配度阻断模型 &#x2192;
     </button>
   </div>
 
-  <!-- ===== VIEW: Holland Intro ===== -->
+  <!-- ===== VIEW: Model Intro ===== -->
   <div class="view fade-in" id="view-holland-intro">
     <div class="app-header">
       <div class="logo">&#x1F52C;</div>
-      <h1>霍兰德职业倾向测评</h1>
-      <div class="subtitle">RIASEC &middot; 36题 &middot; 约3分钟</div>
+      <h1>多维度专业适配度阻断模型</h1>
+      <div class="subtitle">36题 &middot; 约3分钟</div>
     </div>
     <div class="card">
       <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;">
@@ -385,10 +382,10 @@
     </button>
   </div>
 
-  <!-- ===== VIEW: Holland Quiz ===== -->
+  <!-- ===== VIEW: Model Quiz ===== -->
   <div class="view fade-in" id="view-holland">
     <div class="progress-wrap">
-      <div class="progress-info"><span>&#x1F52C; 霍兰德测评</span><span id="holland-progress-text">1/36</span></div>
+      <div class="progress-info"><span>&#x1F52C; 多维度专业适配度阻断模型</span><span id="holland-progress-text">1/36</span></div>
       <div class="progress-bar"><div class="progress-fill" id="holland-progress-fill" style="width:0%"></div></div>
     </div>
     <div class="swipe-container">
@@ -408,30 +405,32 @@
   <!-- ===== VIEW: Result ===== -->
   <div class="view fade-in" id="view-result">
     <div class="app-header">
-      <div class="logo">&#x1F4CA;</div>
+      <div class="brand-row">
+        <img src="Assets/loge.jpg" alt="会泽筑梦高考教育" class="brand-logo" onerror="this.style.display='none'">
+        <span class="brand-name">会泽筑梦高考教育</span>
+      </div>
       <h1>问卷填写完成</h1>
       <div class="subtitle">感谢您的认真作答</div>
     </div>
     <div class="card">
-      <div class="result-code" id="personality-code"></div>
-      <p style="text-align:center;font-size:.85rem;color:#94a3b8;margin-bottom:12px;">霍兰德核心代码</p>
-      <div class="result-desc" id="result-desc"></div>
-      <div style="text-align:center;margin-top:16px;">
-        <canvas id="radarChart" width="300" height="300" style="max-width:100%;"></canvas>
-      </div>
+      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;text-align:center;">
+        您的<strong>多维度专业适配度阻断模型</strong>数据已就绪。
+      </p>
     </div>
     <div class="download-box">
-      <h3>&#x1F4E5; 下载完整结果数据</h3>
-      <p style="font-size:.82rem;color:#86efac;margin-bottom:12px;">结果数据为JSON格式，用于后续程序自动化分析</p>
+      <h3>&#x1F4E5; 获取志愿填报专业排雷报告</h3>
+      <p style="font-size:.84rem;color:#86efac;margin-bottom:16px;line-height:1.7;">
+        请将下方下载的结果文件发送给我<br>
+        即可获取<strong>志愿填报专业排雷报告</strong>
+      </p>
+      <div style="margin-bottom:16px;">
+        <img src="Assets/QR_Code.png" alt="联系二维码" style="max-width:180px;border-radius:12px;border:2px solid rgba(148,163,184,.2);" onerror="this.style.display='none'">
+      </div>
       <button class="btn btn-success" id="btn-download">
         &#x2B07; 下载结果数据 (JSON)
       </button>
     </div>
-    <div class="warning-box" style="margin-top:16px;">
-      <h4>&#x26A0;&#xFE0F; 志愿排雷提示</h4>
-      <p>性格倾向并不等同于最终专业选择。结合真实高考成绩与选科组合，哪些热门专业容易踩坑？哪些低分专业更容易逆袭？</p>
-    </div>
-    <div class="app-footer">数据仅供家庭决策参考 &middot; 不构成报考建议</div>
+    <div class="app-footer">会泽筑梦高考教育 &middot; 数据仅供家庭决策参考</div>
   </div>
 
 </div><!-- /app-container -->

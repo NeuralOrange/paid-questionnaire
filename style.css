@@ -45,6 +45,21 @@ body {
 .app-header h1 { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; letter-spacing: .5px; }
 .app-header .subtitle { font-size: .85rem; color: #94a3b8; margin-top: 4px; }
 
+/* ---- Brand Row ---- */
+.brand-row {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.brand-logo {
+  width: 48px; height: 48px; border-radius: 12px;
+  border: 2px solid rgba(148, 163, 184, 0.3);
+  object-fit: contain;
+}
+.brand-name {
+  font-size: .95rem; font-weight: 700; color: #e2e8f0;
+  letter-spacing: 1px;
+}
+
 /* ---- Card ---- */
 .card {
   background: rgba(30, 41, 59, 0.85);

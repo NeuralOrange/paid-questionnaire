@@ -194,13 +194,56 @@ function collectFormData(formId) {
   return data;
 }
 
+// ==================== FORM VALIDATION HELPERS ====================
+function checkRadio(formId, name) {
+  var form = document.getElementById(formId);
+  var group = form.querySelector('.option-group[data-name="' + name + '"]');
+  if (!group) return false;
+  return !!group.querySelector('.option-item.selected');
+}
+
+function checkCheckbox(formId, name) {
+  var form = document.getElementById(formId);
+  var group = form.querySelector('.option-group[data-name="' + name + '"]');
+  if (!group) return false;
+  return group.querySelectorAll('.option-item.selected').length > 0;
+}
+
+function checkGrid(formId, name) {
+  var form = document.getElementById(formId);
+  var grid = form.querySelector('.grid-options[data-name="' + name + '"]');
+  if (!grid) return false;
+  return grid.querySelectorAll('.grid-option.selected').length > 0;
+}
+
+function checkEvalAll(formId, keys) {
+  var form = document.getElementById(formId);
+  for (var i = 0; i < keys.length; i++) {
+    var cell = form.querySelector('.eval-cell.selected[data-key="' + keys[i] + '"]');
+    if (!cell) return false;
+  }
+  return true;
+}
+
 // ==================== PARENT SUBMIT ====================
 function submitParent() {
-  var data = collectFormData('parent-form');
-  if (!data.q1_parent) {
-    alert('请至少完成第1题后再提交。');
+  var formId = 'parent-form';
+  var missing = [];
+
+  if (!checkRadio(formId, 'q1_parent')) missing.push('第1题：发展路径偏好');
+  if (!checkRadio(formId, 'q2_parent')) missing.push('第2题：风险承受能力');
+  if (!checkRadio(formId, 'q3_parent')) missing.push('第3题：面子与实惠');
+  if (!checkRadio(formId, 'q4_parent')) missing.push('第4题：学历支撑上限');
+  if (!checkRadio(formId, 'q5_parent')) missing.push('第5题：考公/脱产备考容忍度');
+  if (!checkCheckbox(formId, 'q12_parent')) missing.push('第12题：考虑的专业方向（至少选1项）');
+  if (!checkRadio(formId, 'q13_parent')) missing.push('第13题：最看重的特质');
+
+  if (missing.length > 0) {
+    alert('以下题目尚未完成，请填写后再提交：\n\n' + missing.join('\n'));
     return;
   }
+
+  var data = collectFormData('parent-form');
   ALL_DATA.parent = data;
   localStorage.setItem('qa_parent', JSON.stringify(data));
   localStorage.setItem('qa_phase', 'student');
@@ -209,11 +252,25 @@ function submitParent() {
 
 // ==================== STUDENT SUBMIT ====================
 function submitStudent() {
-  var data = collectFormData('student-form');
-  if (!data.q6_like || data.q6_like.length === 0) {
-    alert('请至少选择一门最喜欢的学科。');
+  var formId = 'student-form';
+  var missing = [];
+
+  if (!checkGrid(formId, 'q6_like')) missing.push('第6题：最喜欢的学科（至少选1门）');
+  if (!checkGrid(formId, 'q7_dislike')) missing.push('第7题：最排斥/吃力的学科（至少选1门）');
+  if (!checkEvalAll(formId, ['q8_math', 'q8_physics', 'q8_chemistry', 'q8_english']))
+    missing.push('第8题：学科能力自评（4科均需选择）');
+  if (!checkCheckbox(formId, 'q9_sensory')) missing.push('第9题：感官耐受度（至少选1项）');
+  if (!checkRadio(formId, 'q10_role')) missing.push('第10题：活动角色选择');
+  if (!checkRadio(formId, 'q11_detail')) missing.push('第11题：细节耐受度');
+  if (!checkCheckbox(formId, 'q12_student')) missing.push('第12题：考虑的专业方向（至少选1项）');
+  if (!checkRadio(formId, 'q13_student')) missing.push('第13题：最看重的特质');
+
+  if (missing.length > 0) {
+    alert('以下题目尚未完成，请填写后再提交：\n\n' + missing.join('\n'));
     return;
   }
+
+  var data = collectFormData('student-form');
   ALL_DATA.student = data;
   localStorage.setItem('qa_student', JSON.stringify(data));
   localStorage.setItem('qa_phase', 'holland');
@@ -382,23 +439,6 @@ function resetSwipeCard() {
 // ==================== RESULT ====================
 function showResult() {
   switchTo('view-result');
-
-  var scores = ALL_DATA.holland.scores;
-  var sorted = Object.entries(scores).sort(function (a, b) {
-    return b[1] - a[1];
-  });
-  var primaryCode = sorted[0][0];
-  var secondaryCode = sorted[1][0];
-
-  document.getElementById('personality-code').textContent =
-    '核心代码：' + primaryCode + secondaryCode;
-
-  document.getElementById('result-desc').innerHTML =
-    HOLLAND_PROFILES.primary[primaryCode] +
-    '<br><br>' +
-    HOLLAND_PROFILES.secondary[secondaryCode];
-
-  setTimeout(function () { renderRadarChart(scores); }, 400);
 }
 
 function renderRadarChart(scores) {
@@ -503,7 +543,7 @@ function restoreState() {
     resumeBtn.textContent = '查看上次结果';
     resumeBtn.addEventListener('click', function () { showResult(); });
   } else if (phase === 'holland') {
-    resumeBtn.textContent = '继续霍兰德测评 (' + hollandIndex + '/36)';
+    resumeBtn.textContent = '继续多维度专业适配度阻断模型 (' + hollandIndex + '/36)';
     resumeBtn.addEventListener('click', function () {
       if (hollandIndex >= HOLLAND_QUESTIONS.length) {
         showResult();
