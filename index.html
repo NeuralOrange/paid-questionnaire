@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>2026年高考志愿 · 家庭决策体检问卷</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<div class="app-container" id="app">
+
+  <!-- ===== VIEW: Welcome ===== -->
+  <div class="view active fade-in" id="view-welcome">
+    <div class="app-header">
+      <div class="logo">&#x1F4CB;</div>
+      <h1>2026年高考志愿<br>家庭决策体检问卷</h1>
+      <div class="subtitle">数据驱动 &middot; 科学决策 &middot; 家庭共识</div>
+    </div>
+    <div class="card">
+      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;">
+        本问卷共包含<strong>家长部分</strong><strong>学生部分</strong>，旨在为家庭志愿决策提供数据参考。
+      </p>
+    </div>
+    <div class="warning-box">
+      <h4>&#x26A0;&#xFE0F; 重要提醒：独立填写</h4>
+      <p>为保证数据有效性，<strong>家长和学生必须分别独立填写</strong>。系统将在后台进行一致性比对。<br><br>
+      <strong style="color:#fca5a5;">严禁商量，否则报告失真概不负责。</strong></p>
+    </div>
+    <button class="btn btn-primary" id="btn-start" style="margin-top:8px;">
+      开始填写 &middot; 家长先填
+    </button>
+    <div class="app-footer">问卷内容仅供志愿决策参考，不构成报考建议</div>
+  </div>
+
+  <!-- ===== VIEW: Parent ===== -->
+  <div class="view fade-in" id="view-parent">
+    <div class="progress-wrap">
+      <div class="progress-info"><span>&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467; 家长填写</span><span>模块一、二、五</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="parent-progress-fill" style="width:0%"></div></div>
+    </div>
+
+    <form id="parent-form" onsubmit="return false;">
+
+      <!-- 模块一 -->
+      <div class="card">
+        <div class="form-label">&#x1F4CA; 模块一：家庭抗风险能力评测 <span class="tag tag-parent">家长填</span></div>
+
+        <div class="form-group">
+          <div class="form-label">第1题：发展路径偏好</div>
+          <div class="option-group" data-type="radio" data-name="q1_parent">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 孩子毕业去一线城市，起薪七八千，但经常加班出差，中年可能有裁员风险。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 孩子回本省县城，起薪三四千，但安稳有编制，能踏实干到退休。</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第2题：风险承受能力</div>
+          <div class="option-group" data-type="radio" data-name="q2_parent">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 为了更高的上限，可以接受毕业后前几年不稳定，甚至可能需要家里短期接济。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 必须保证毕业后立刻有稳定的工作和收入，不接受&ldquo;飘着&rdquo;的状态。</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第3题：面子与实惠</div>
+          <div class="option-group" data-type="radio" data-name="q3_parent">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 学校名声大、说出来有面子更重要，专业差点可以接受。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 专业好就业、将来出路实在更重要，学校名气可以妥协。</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模块二 -->
+      <div class="card">
+        <div class="form-label">&#x1F4B0; 模块二：财务与学历支撑底线评测 <span class="tag tag-parent">家长填</span></div>
+
+        <div class="form-group">
+          <div class="form-label">第4题：学历支撑上限</div>
+          <div class="option-group" data-type="radio" data-name="q4_parent">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 本科毕业必须工作，不能再供了。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 可以支持读一个国内研究生（2-3年）。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">C. 全力支持，读到博士也没问题。</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第5题：考公/脱产备考容忍度</div>
+          <div class="option-group" data-type="radio" data-name="q5_parent">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 不能接受，毕业必须立刻就业。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 可以接受1年以内。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">C. 全力支持，考上为止。</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模块五 (家长) -->
+      <div class="card">
+        <div class="form-label">&#x1F3AF; 模块五：意向专业初筛与顾虑</div>
+
+        <div class="form-group">
+          <div class="form-label">第12题：目前听说过的、在考虑的专业方向（可多选）</div>
+          <div class="option-group" data-type="checkbox" data-name="q12_parent">
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">临床医学/口腔医学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">计算机/软件工程</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">法学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">会计学/财务管理</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">汉语言文学/新闻传播</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">师范类</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">电气工程/自动化</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">金融学/经济学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">建筑学/土木工程</span></label>
+          </div>
+          <input type="text" class="text-input" placeholder="其他：__________" style="margin-top:8px;" data-qid="q12_other_parent">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第13题：选择专业时，最看重的特质（单选）</div>
+          <div class="option-group" data-type="radio" data-name="q13_parent">
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">A. 将来好考公务员/事业单位</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">B. 本科毕业就能找到高薪工作</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">C. 将来好读研深造，有学术前途</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">D. 家里有相关行业资源，能帮上忙</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第14题：关于填志愿，你们目前最焦虑/最担心的是什么？</div>
+          <input type="text" class="text-input" placeholder="如实写，比如&ldquo;怕滑档&rdquo;、&ldquo;怕选错专业&rdquo;..." data-qid="q14_parent">
+        </div>
+      </div>
+
+    </form>
+
+    <button class="btn btn-primary" id="btn-parent-submit">
+      家长填写完毕，交给学生 &#x2192;
+    </button>
+  </div>
+
+  <!-- ===== VIEW: Student Transition ===== -->
+  <div class="view fade-in" id="view-student-transition">
+    <div class="app-header">
+      <div class="logo">&#x1F512;</div>
+      <h1>家长部分已完成</h1>
+      <div class="subtitle">请将设备交给学生独立填写</div>
+    </div>
+    <div class="warning-box">
+      <h4>&#x26A0;&#xFE0F; 再次提醒</h4>
+      <p>学生必须<strong>独立</strong>填写以下内容。家长不得在旁边提示或干涉。系统将自动比对家长与学生答案的一致性。<br><br>
+      <strong style="color:#fca5a5;">商量或代填将导致报告严重失真。</strong></p>
+    </div>
+    <div class="card">
+      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;">
+        接下来包括：<br>
+        &#x1F4DA; <strong>模块三</strong>：学业能力与学科偏好评测<br>
+        &#x1F9E0; <strong>模块四</strong>：感官与性格底线评测<br>
+        &#x1F3AF; <strong>模块五</strong>：意向专业初筛与顾虑<br>
+        &#x1F52C; <strong>霍兰德职业倾向测评</strong>（36题）
+      </p>
+    </div>
+    <button class="btn btn-success" id="btn-student-begin">
+      开始学生填写 &#x2192;
+    </button>
+  </div>
+
+  <!-- ===== VIEW: Student ===== -->
+  <div class="view fade-in" id="view-student">
+    <div class="progress-wrap">
+      <div class="progress-info"><span>&#x1F9D1;&#x200D;&#x1F393; 学生填写</span><span>模块三、四、五</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="student-progress-fill" style="width:0%"></div></div>
+    </div>
+
+    <form id="student-form" onsubmit="return false;">
+
+      <!-- 模块三 -->
+      <div class="card">
+        <div class="form-label">&#x1F4DA; 模块三：学业能力与学科偏好评测 <span class="tag tag-student">学生填</span></div>
+
+        <div class="form-group">
+          <div class="form-label">第6题：高中最喜欢的学科（至多选3门）</div>
+          <div class="grid-options" data-type="checkbox" data-name="q6_like" data-max="3">
+            <div class="grid-option" onclick="selectGridOption(this)">语文</div>
+            <div class="grid-option" onclick="selectGridOption(this)">数学</div>
+            <div class="grid-option" onclick="selectGridOption(this)">英语</div>
+            <div class="grid-option" onclick="selectGridOption(this)">物理</div>
+            <div class="grid-option" onclick="selectGridOption(this)">化学</div>
+            <div class="grid-option" onclick="selectGridOption(this)">生物</div>
+            <div class="grid-option" onclick="selectGridOption(this)">历史</div>
+            <div class="grid-option" onclick="selectGridOption(this)">地理</div>
+            <div class="grid-option" onclick="selectGridOption(this)">政治</div>
+            <div class="grid-option" onclick="selectGridOption(this)">信息技术</div>
+            <div class="grid-option" onclick="selectGridOption(this)">通用技术</div>
+          </div>
+          <input type="text" class="text-input" placeholder="最喜欢的理由是：__________（一句话即可）" style="margin-top:10px;" data-qid="q6_reason">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第7题：高中最排斥/吃力的学科（至多选3门）</div>
+          <div class="grid-options" data-type="checkbox" data-name="q7_dislike" data-max="3">
+            <div class="grid-option" onclick="selectGridOption(this)">语文</div>
+            <div class="grid-option" onclick="selectGridOption(this)">数学</div>
+            <div class="grid-option" onclick="selectGridOption(this)">英语</div>
+            <div class="grid-option" onclick="selectGridOption(this)">物理</div>
+            <div class="grid-option" onclick="selectGridOption(this)">化学</div>
+            <div class="grid-option" onclick="selectGridOption(this)">生物</div>
+            <div class="grid-option" onclick="selectGridOption(this)">历史</div>
+            <div class="grid-option" onclick="selectGridOption(this)">地理</div>
+            <div class="grid-option" onclick="selectGridOption(this)">政治</div>
+            <div class="grid-option" onclick="selectGridOption(this)">信息技术</div>
+            <div class="grid-option" onclick="selectGridOption(this)">通用技术</div>
+          </div>
+          <input type="text" class="text-input" placeholder="排斥/吃力的原因是：__________（一句话即可）" style="margin-top:10px;" data-qid="q7_reason">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第8题：学科能力自评</div>
+          <table class="self-eval-table">
+            <tr><th></th><th>轻松驾驭</th><th>正常应付</th><th>非常吃力</th></tr>
+            <tr>
+              <td style="text-align:left;">数学</td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_math',2)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_math',1)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_math',0)"></span></td>
+            </tr>
+            <tr>
+              <td style="text-align:left;">物理</td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_physics',2)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_physics',1)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_physics',0)"></span></td>
+            </tr>
+            <tr>
+              <td style="text-align:left;">化学</td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_chemistry',2)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_chemistry',1)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_chemistry',0)"></span></td>
+            </tr>
+            <tr>
+              <td style="text-align:left;">英语</td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_english',2)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_english',1)"></span></td>
+              <td><span class="eval-cell" onclick="selectEval(this,'q8_english',0)"></span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 模块四 -->
+      <div class="card">
+        <div class="form-label">&#x1F9E0; 模块四：感官与性格底线评测 <span class="tag tag-student">学生填</span></div>
+
+        <div class="form-group">
+          <div class="form-label">第9题：感官耐受度（可多选，勾选<strong>绝对不能接受</strong>的）</div>
+          <div class="option-group" data-type="checkbox" data-name="q9_sensory">
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">见血、见伤口、见手术场面</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">解剖动物（包括青蛙、小白鼠）</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">长时间对着显微镜或用精密工具（手抖不行）</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">每天在户外风吹日晒</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">一天到晚对着电脑屏幕敲代码</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第10题：学校组织一场大型活动，你最愿意承担哪个角色？</div>
+          <div class="option-group" data-type="radio" data-name="q10_role">
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">A. 在后台负责统计表格、准备物料（倾向数据处理、独处）</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">B. 在前台担任主持人或负责接待来宾（倾向人际交互、表达）</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">C. 作为普通观众在下面看（倾向回避高压社交）</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第11题：细节耐受度</div>
+          <div class="option-group" data-type="radio" data-name="q11_detail">
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">A. 是，我经常能看出别人的错别字或数据错误。</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">B. 不是，我大大咧咧，抓大放小。</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模块五 (学生) -->
+      <div class="card">
+        <div class="form-label">&#x1F3AF; 模块五：意向专业初筛与顾虑</div>
+
+        <div class="form-group">
+          <div class="form-label">第12题：目前听说过的、在考虑的专业方向（可多选）</div>
+          <div class="option-group" data-type="checkbox" data-name="q12_student">
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">临床医学/口腔医学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">计算机/软件工程</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">法学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">会计学/财务管理</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">汉语言文学/新闻传播</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">师范类</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">电气工程/自动化</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">金融学/经济学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">建筑学/土木工程</span></label>
+          </div>
+          <input type="text" class="text-input" placeholder="其他：__________" style="margin-top:8px;" data-qid="q12_other_student">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第13题：选择专业时，最看重的特质（单选）</div>
+          <div class="option-group" data-type="radio" data-name="q13_student">
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">A. 将来好考公务员/事业单位</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">B. 本科毕业就能找到高薪工作</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">C. 将来好读研深造，有学术前途</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">D. 家里有相关行业资源，能帮上忙</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第14题：关于填志愿，你们目前最焦虑/最担心的是什么？</div>
+          <input type="text" class="text-input" placeholder="如实写，比如&ldquo;怕滑档&rdquo;、&ldquo;怕选错专业&rdquo;..." data-qid="q14_student">
+        </div>
+      </div>
+
+    </form>
+
+    <button class="btn btn-accent" id="btn-student-submit">
+      进入霍兰德职业倾向测评 &#x2192;
+    </button>
+  </div>
+
+  <!-- ===== VIEW: Holland Intro ===== -->
+  <div class="view fade-in" id="view-holland-intro">
+    <div class="app-header">
+      <div class="logo">&#x1F52C;</div>
+      <h1>霍兰德职业倾向测评</h1>
+      <div class="subtitle">RIASEC &middot; 36题 &middot; 约3分钟</div>
+    </div>
+    <div class="card">
+      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;">
+        以下36道题描述了你可能的行为或偏好。请根据你的<strong>真实感受</strong>作答，而非&ldquo;应该&rdquo;如何。
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>&#x1F4F1; 手机用户</h4>
+      <p style="font-size:.82rem;color:#bae6fd;margin-top:4px;">
+        <strong>向右划</strong> = 很符合 &nbsp;|&nbsp; <strong>向上划</strong> = 一般般 &nbsp;|&nbsp; <strong>向左划</strong> = 不符合
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>&#x1F5A5; 电脑用户</h4>
+      <p style="font-size:.82rem;color:#bae6fd;margin-top:4px;">点击下方按钮作答</p>
+    </div>
+    <button class="btn btn-accent" id="btn-holland-start">
+      开始测评 &#x2192;
+    </button>
+  </div>
+
+  <!-- ===== VIEW: Holland Quiz ===== -->
+  <div class="view fade-in" id="view-holland">
+    <div class="progress-wrap">
+      <div class="progress-info"><span>&#x1F52C; 霍兰德测评</span><span id="holland-progress-text">1/36</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="holland-progress-fill" style="width:0%"></div></div>
+    </div>
+    <div class="swipe-container">
+      <div class="swipe-hint" id="swipe-hint">&#x2190; 不符合 | 一般般 &#x2191; | 很符合 &#x2192;</div>
+      <div class="swipe-card-wrap" id="swipe-card-wrap">
+        <div class="swipe-card" id="swipe-card"></div>
+        <div class="swipe-label" id="swipe-label"></div>
+      </div>
+      <div class="swipe-buttons">
+        <button class="swipe-btn no" id="btn-no">&#x2717; 不符合</button>
+        <button class="swipe-btn mid" id="btn-mid">&#x2014; 一般般</button>
+        <button class="swipe-btn yes" id="btn-yes">&#x2713; 很符合</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: Result ===== -->
+  <div class="view fade-in" id="view-result">
+    <div class="app-header">
+      <div class="logo">&#x1F4CA;</div>
+      <h1>问卷填写完成</h1>
+      <div class="subtitle">感谢您的认真作答</div>
+    </div>
+    <div class="card">
+      <div class="result-code" id="personality-code"></div>
+      <p style="text-align:center;font-size:.85rem;color:#94a3b8;margin-bottom:12px;">霍兰德核心代码</p>
+      <div class="result-desc" id="result-desc"></div>
+      <div style="text-align:center;margin-top:16px;">
+        <canvas id="radarChart" width="300" height="300" style="max-width:100%;"></canvas>
+      </div>
+    </div>
+    <div class="download-box">
+      <h3>&#x1F4E5; 下载完整结果数据</h3>
+      <p style="font-size:.82rem;color:#86efac;margin-bottom:12px;">结果数据为JSON格式，用于后续程序自动化分析</p>
+      <button class="btn btn-success" id="btn-download">
+        &#x2B07; 下载结果数据 (JSON)
+      </button>
+    </div>
+    <div class="warning-box" style="margin-top:16px;">
+      <h4>&#x26A0;&#xFE0F; 志愿排雷提示</h4>
+      <p>性格倾向并不等同于最终专业选择。结合真实高考成绩与选科组合，哪些热门专业容易踩坑？哪些低分专业更容易逆袭？</p>
+    </div>
+    <div class="app-footer">数据仅供家庭决策参考 &middot; 不构成报考建议</div>
+  </div>
+
+</div><!-- /app-container -->
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Application Logic -->
+<script src="app.js"></script>
+
+</body>
+</html>
