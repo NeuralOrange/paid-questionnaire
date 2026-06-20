@@ -255,6 +255,8 @@ function submitStudent() {
   var formId = 'student-form';
   var missing = [];
 
+  if (!checkRadio(formId, 'q0_1_gender')) missing.push('第0-1题：性别');
+  if (!checkRadio(formId, 'q0_2_score_tier')) missing.push('第0-2题：分数层次定位');
   if (!checkGrid(formId, 'q6_like')) missing.push('第6题：最喜欢的学科（至少选1门）');
   if (!checkGrid(formId, 'q7_dislike')) missing.push('第7题：最排斥/吃力的学科（至少选1门）');
   if (!checkEvalAll(formId, ['q8_math', 'q8_physics', 'q8_chemistry', 'q8_english']))

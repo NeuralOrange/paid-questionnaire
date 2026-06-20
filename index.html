@@ -211,6 +211,50 @@
     <form id="student-form" onsubmit="return false;">
 
       <div class="card">
+        <div class="form-label">&#x1F9D1; 基本信息 <span class="tag tag-student">学生填</span></div>
+
+        <div class="form-group">
+          <div class="form-label">第1题：性别</div>
+          <div class="option-group" data-type="radio" data-name="q0_1_gender">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">男</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">女</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第2题：分数层次定位（单选，基于高考分，勾选最接近的一项）</div>
+          <div class="option-group" data-type="radio" data-name="q0_2_score_tier">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 985/顶尖211边缘（全省位次约前3%）</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 中坚211/优质一本（全省位次约前10%）</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">C. 一本线附近（全省位次约前20%）</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">D. 二本中上（公办本科稳，但好专业需精挑）</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">E. 二本线附近或以下（民办本科/优质专科需权衡）</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
         <div class="form-label">&#x1F4DA; 模块三：学业能力与学科偏好评测 <span class="tag tag-student">学生填</span></div>
 
         <div class="form-group">
