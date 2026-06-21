@@ -23,14 +23,20 @@
       <div class="subtitle">数据驱动 &middot; 科学决策 &middot; 家庭共识</div>
     </div>
     <div class="card">
-      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;">
-        本问卷共包含<strong>家长部分</strong><strong>学生部分</strong>，旨在为家庭志愿决策提供数据参考。
+      <p style="font-size:.9rem;color:#3a3a3a;line-height:1.7;">
+        本问卷共包含<strong>家长部分</strong>（8题）与<strong>学生部分</strong>（14题 + 36题测评），旨在为家庭志愿决策提供数据参考。
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>&#x1F4F1; 使用提示</h4>
+      <p style="font-size:.82rem;color:#4a627a;margin-top:4px;line-height:1.7;">
+        微信和QQ内置浏览器可能无法正常填写，<strong>推荐使用系统浏览器</strong>（如 Chrome、Safari、Edge）打开本页面以获得完整体验。
       </p>
     </div>
     <div class="warning-box">
       <h4>&#x26A0;&#xFE0F; 重要提醒：独立填写</h4>
       <p>为保证数据有效性，<strong>家长和学生必须分别独立填写</strong>。系统将在后台进行一致性比对。<br><br>
-      <strong style="color:#fca5a5;">严禁商量，否则报告失真概不负责。</strong></p>
+      <strong style="color:#c53030;">严禁商量，否则报告失真概不负责。</strong></p>
     </div>
     <button class="btn btn-primary" id="btn-start" style="margin-top:8px;">
       开始填写 &middot; 家长先填
@@ -41,14 +47,14 @@
   <!-- ===== VIEW: Parent ===== -->
   <div class="view fade-in" id="view-parent">
     <div class="progress-wrap">
-      <div class="progress-info"><span>&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467; 家长填写</span><span>模块一、二、五</span></div>
+      <div class="progress-info"><span>&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467; 家长填写</span><span>共8题</span></div>
       <div class="progress-bar"><div class="progress-fill" id="parent-progress-fill" style="width:0%"></div></div>
     </div>
 
     <form id="parent-form" onsubmit="return false;">
 
       <div class="card">
-        <div class="form-label">&#x1F4CA; 模块一：家庭抗风险能力评测 <span class="tag tag-parent">家长填</span></div>
+        <div class="form-label">&#x1F4CA; 家庭抗风险能力评测 <span class="tag tag-parent">家长填</span></div>
 
         <div class="form-group">
           <div class="form-label">第1题：发展路径偏好</div>
@@ -94,7 +100,7 @@
       </div>
 
       <div class="card">
-        <div class="form-label">&#x1F4B0; 模块二：财务与学历支撑底线评测 <span class="tag tag-parent">家长填</span></div>
+        <div class="form-label">&#x1F4B0; 财务与学历支撑底线评测 <span class="tag tag-parent">家长填</span></div>
 
         <div class="form-group">
           <div class="form-label">第4题：学历支撑上限</div>
@@ -134,10 +140,10 @@
       </div>
 
       <div class="card">
-        <div class="form-label">&#x1F3AF; 模块五：意向专业初筛与顾虑</div>
+        <div class="form-label">&#x1F3AF; 意向专业初筛与顾虑 <span class="tag tag-parent">家长填</span></div>
 
         <div class="form-group">
-          <div class="form-label">第12题：目前听说过的、在考虑的专业方向（可多选）</div>
+          <div class="form-label">第6题：目前在考虑的专业方向（可多选）</div>
           <div class="option-group" data-type="checkbox" data-name="q12_parent">
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">临床医学/口腔医学</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">计算机/软件工程</span></label>
@@ -145,15 +151,23 @@
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">会计学/财务管理</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">汉语言文学/新闻传播</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">师范类</span></label>
-            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">电气工程/自动化</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">电气工程</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">石油工程</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">金融学/经济学</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">建筑学/土木工程</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">英语/日语/其他小语种</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">历史学/世界史/考古学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">行政管理/公共事业管理</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">数学/物理</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">统计学/大数据</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">思想政治教育/马克思主义理论</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">机械工程/自动化</span></label>
           </div>
           <input type="text" class="text-input" placeholder="其他：__________" style="margin-top:8px;" data-qid="q12_other_parent">
         </div>
 
         <div class="form-group">
-          <div class="form-label">第13题：选择专业时，最看重的特质（单选）</div>
+          <div class="form-label">第7题：选择专业时，最看重的特质（单选）</div>
           <div class="option-group" data-type="radio" data-name="q13_parent">
             <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">A. 将来好考公务员/事业单位</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-radio"></span><span class="option-text">B. 本科毕业就能找到高薪工作</span></label>
@@ -163,7 +177,7 @@
         </div>
 
         <div class="form-group">
-          <div class="form-label">第14题：关于填志愿，你们目前最焦虑/最担心的是什么？</div>
+          <div class="form-label">第8题：关于填志愿，你们目前最焦虑/最担心的是什么？</div>
           <input type="text" class="text-input" placeholder="如实写，比如&ldquo;怕滑档&rdquo;、&ldquo;怕选错专业&rdquo;..." data-qid="q14_parent">
         </div>
       </div>
@@ -185,14 +199,16 @@
     <div class="warning-box">
       <h4>&#x26A0;&#xFE0F; 再次提醒</h4>
       <p>学生必须<strong>独立</strong>填写以下内容。家长不得在旁边提示或干涉。系统将自动比对家长与学生答案的一致性。<br><br>
-      <strong style="color:#fca5a5;">商量或代填将导致报告严重失真。</strong></p>
+      <strong style="color:#c53030;">商量或代填将导致报告严重失真。</strong></p>
     </div>
     <div class="card">
-      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;">
+      <p style="font-size:.9rem;color:#3a3a3a;line-height:1.7;">
         接下来包括：<br>
-        &#x1F4DA; <strong>模块三</strong>：学业能力与学科偏好评测<br>
-        &#x1F9E0; <strong>模块四</strong>：感官与性格底线评测<br>
-        &#x1F3AF; <strong>模块五</strong>：意向专业初筛与顾虑<br>
+        &#x1F9D1; <strong>基本信息</strong>（2题）<br>
+        &#x1F3AF; <strong>个人发展预期</strong>（3题）<br>
+        &#x1F4DA; <strong>学业能力与学科偏好评测</strong>（3题）<br>
+        &#x1F9E0; <strong>感官与性格底线评测</strong>（3题）<br>
+        &#x1F3AF; <strong>意向专业初筛与顾虑</strong>（3题）<br>
         &#x1F52C; <strong>多维度专业适配度阻断模型</strong>（36题）
       </p>
     </div>
@@ -204,7 +220,7 @@
   <!-- ===== VIEW: Student ===== -->
   <div class="view fade-in" id="view-student">
     <div class="progress-wrap">
-      <div class="progress-info"><span>&#x1F9D1;&#x200D;&#x1F393; 学生填写</span><span>模块三、四、五</span></div>
+      <div class="progress-info"><span>&#x1F9D1;&#x200D;&#x1F393; 学生填写</span><span>共14题</span></div>
       <div class="progress-bar"><div class="progress-fill" id="student-progress-fill" style="width:0%"></div></div>
     </div>
 
@@ -217,12 +233,10 @@
           <div class="form-label">第1题：性别</div>
           <div class="option-group" data-type="radio" data-name="q0_1_gender">
             <label class="option-item" onclick="selectOption(this)">
-              <span class="option-radio"></span>
-              <span class="option-text">男</span>
+              <span class="option-radio"></span><span class="option-text">男</span>
             </label>
             <label class="option-item" onclick="selectOption(this)">
-              <span class="option-radio"></span>
-              <span class="option-text">女</span>
+              <span class="option-radio"></span><span class="option-text">女</span>
             </label>
           </div>
         </div>
@@ -255,7 +269,53 @@
       </div>
 
       <div class="card">
-        <div class="form-label">&#x1F4DA; 模块三：学业能力与学科偏好评测 <span class="tag tag-student">学生填</span></div>
+        <div class="form-label">&#x1F3AF; 个人发展预期 <span class="tag tag-student">学生填</span></div>
+
+        <div class="form-group">
+          <div class="form-label">第3题：发展路径偏好</div>
+          <div class="option-group" data-type="radio" data-name="q_s1_path">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 我毕业想去一线城市，起薪七八千，但经常加班出差，中年可能有裁员风险。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 我毕业想回本省县城，起薪三四千，但安稳有编制，能踏实干到退休。</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第4题：风险承受能力</div>
+          <div class="option-group" data-type="radio" data-name="q_s2_risk">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 为了更高的上限，我可以接受毕业后前几年不稳定，甚至可能需要家里短期接济。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 我必须保证毕业后立刻有稳定的工作和收入，不接受&ldquo;飘着&rdquo;的状态。</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">第5题：面子与实惠</div>
+          <div class="option-group" data-type="radio" data-name="q_s3_face">
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">A. 学校名声大、说出来有面子更重要，专业差点我可以接受。</span>
+            </label>
+            <label class="option-item" onclick="selectOption(this)">
+              <span class="option-radio"></span>
+              <span class="option-text">B. 专业好就业、将来出路实在更重要，学校名气我可以妥协。</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="form-label">&#x1F4DA; 学业能力与学科偏好评测 <span class="tag tag-student">学生填</span></div>
 
         <div class="form-group">
           <div class="form-label">第6题：高中最喜欢的学科（至多选3门）</div>
@@ -326,7 +386,7 @@
       </div>
 
       <div class="card">
-        <div class="form-label">&#x1F9E0; 模块四：感官与性格底线评测 <span class="tag tag-student">学生填</span></div>
+        <div class="form-label">&#x1F9E0; 感官与性格底线评测 <span class="tag tag-student">学生填</span></div>
 
         <div class="form-group">
           <div class="form-label">第9题：感官耐受度（可多选，勾选<strong>绝对不能接受</strong>的）</div>
@@ -358,10 +418,10 @@
       </div>
 
       <div class="card">
-        <div class="form-label">&#x1F3AF; 模块五：意向专业初筛与顾虑</div>
+        <div class="form-label">&#x1F3AF; 意向专业初筛与顾虑 <span class="tag tag-student">学生填</span></div>
 
         <div class="form-group">
-          <div class="form-label">第12题：目前听说过的、在考虑的专业方向（可多选）</div>
+          <div class="form-label">第12题：目前在考虑的专业方向（可多选）</div>
           <div class="option-group" data-type="checkbox" data-name="q12_student">
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">临床医学/口腔医学</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">计算机/软件工程</span></label>
@@ -369,9 +429,17 @@
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">会计学/财务管理</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">汉语言文学/新闻传播</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">师范类</span></label>
-            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">电气工程/自动化</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">电气工程</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">石油工程</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">金融学/经济学</span></label>
             <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">建筑学/土木工程</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">英语/日语/其他小语种</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">历史学/世界史/考古学</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">行政管理/公共事业管理</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">数学/物理</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">统计学/大数据</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">思想政治教育/马克思主义理论</span></label>
+            <label class="option-item" onclick="selectOption(this)"><span class="option-checkbox"></span><span class="option-text">机械工程/自动化</span></label>
           </div>
           <input type="text" class="text-input" placeholder="其他：__________" style="margin-top:8px;" data-qid="q12_other_student">
         </div>
@@ -407,19 +475,19 @@
       <div class="subtitle">36题 &middot; 约3分钟</div>
     </div>
     <div class="card">
-      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;">
+      <p style="font-size:.9rem;color:#3a3a3a;line-height:1.7;">
         以下36道题描述了你可能的行为或偏好。请根据你的<strong>真实感受</strong>作答，而非&ldquo;应该&rdquo;如何。
       </p>
     </div>
     <div class="info-box">
       <h4>&#x1F4F1; 手机用户</h4>
-      <p style="font-size:.82rem;color:#bae6fd;margin-top:4px;">
+      <p style="font-size:.82rem;color:#4a627a;margin-top:4px;">
         <strong>向右划</strong> = 很符合 &nbsp;|&nbsp; <strong>向上划</strong> = 一般般 &nbsp;|&nbsp; <strong>向左划</strong> = 不符合
       </p>
     </div>
     <div class="info-box">
       <h4>&#x1F5A5; 电脑用户</h4>
-      <p style="font-size:.82rem;color:#bae6fd;margin-top:4px;">点击下方按钮作答</p>
+      <p style="font-size:.82rem;color:#4a627a;margin-top:4px;">点击下方按钮作答</p>
     </div>
     <button class="btn btn-accent" id="btn-holland-start">
       开始测评 &#x2192;
@@ -443,6 +511,11 @@
         <button class="swipe-btn mid" id="btn-mid">&#x2014; 一般般</button>
         <button class="swipe-btn yes" id="btn-yes">&#x2713; 很符合</button>
       </div>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="btn btn-secondary btn-sm" id="btn-prev" style="width:auto;">
+          &#x21A9; 返回上一题
+        </button>
+      </div>
     </div>
   </div>
 
@@ -457,18 +530,18 @@
       <div class="subtitle">感谢您的认真作答</div>
     </div>
     <div class="card">
-      <p style="font-size:.9rem;color:#cbd5e1;line-height:1.7;text-align:center;">
+      <p style="font-size:.9rem;color:#3a3a3a;line-height:1.7;text-align:center;">
         您的<strong>多维度专业适配度阻断模型</strong>数据已就绪。
       </p>
     </div>
     <div class="download-box">
       <h3>&#x1F4E5; 获取志愿填报专业排雷报告</h3>
-      <p style="font-size:.84rem;color:#86efac;margin-bottom:16px;line-height:1.7;">
+      <p style="font-size:.84rem;color:#4a7a62;margin-bottom:16px;line-height:1.7;">
         请将下方下载的结果文件发送给我<br>
         即可获取<strong>志愿填报专业排雷报告</strong>
       </p>
       <div style="margin-bottom:16px;">
-        <img src="Assets/QR_Code.png" alt="联系二维码" style="max-width:180px;border-radius:12px;border:2px solid rgba(148,163,184,.2);" onerror="this.style.display='none'">
+        <img src="Assets/QR_Code.png" alt="联系二维码" style="max-width:180px;border-radius:12px;border:2px solid rgba(0,0,0,.08);" onerror="this.style.display='none'">
       </div>
       <button class="btn btn-success" id="btn-download">
         &#x2B07; 下载结果数据 (JSON)

@@ -235,8 +235,8 @@ function submitParent() {
   if (!checkRadio(formId, 'q3_parent')) missing.push('第3题：面子与实惠');
   if (!checkRadio(formId, 'q4_parent')) missing.push('第4题：学历支撑上限');
   if (!checkRadio(formId, 'q5_parent')) missing.push('第5题：考公/脱产备考容忍度');
-  if (!checkCheckbox(formId, 'q12_parent')) missing.push('第12题：考虑的专业方向（至少选1项）');
-  if (!checkRadio(formId, 'q13_parent')) missing.push('第13题：最看重的特质');
+  if (!checkCheckbox(formId, 'q12_parent')) missing.push('第6题：考虑的专业方向（至少选1项）');
+  if (!checkRadio(formId, 'q13_parent')) missing.push('第7题：最看重的特质');
 
   if (missing.length > 0) {
     alert('以下题目尚未完成，请填写后再提交：\n\n' + missing.join('\n'));
@@ -255,13 +255,15 @@ function submitStudent() {
   var formId = 'student-form';
   var missing = [];
 
-  if (!checkRadio(formId, 'q0_1_gender')) missing.push('第0-1题：性别');
-  if (!checkRadio(formId, 'q0_2_score_tier')) missing.push('第0-2题：分数层次定位');
+  if (!checkRadio(formId, 'q0_1_gender')) missing.push('第1题：性别');
+  if (!checkRadio(formId, 'q0_2_score_tier')) missing.push('第2题：分数层次定位');
+  if (!checkRadio(formId, 'q_s1_path')) missing.push('第3题：发展路径偏好');
+  if (!checkRadio(formId, 'q_s2_risk')) missing.push('第4题：风险承受能力');
+  if (!checkRadio(formId, 'q_s3_face')) missing.push('第5题：面子与实惠');
   if (!checkGrid(formId, 'q6_like')) missing.push('第6题：最喜欢的学科（至少选1门）');
   if (!checkGrid(formId, 'q7_dislike')) missing.push('第7题：最排斥/吃力的学科（至少选1门）');
   if (!checkEvalAll(formId, ['q8_math', 'q8_physics', 'q8_chemistry', 'q8_english']))
     missing.push('第8题：学科能力自评（4科均需选择）');
-  if (!checkCheckbox(formId, 'q9_sensory')) missing.push('第9题：感官耐受度（至少选1项）');
   if (!checkRadio(formId, 'q10_role')) missing.push('第10题：活动角色选择');
   if (!checkRadio(formId, 'q11_detail')) missing.push('第11题：细节耐受度');
   if (!checkCheckbox(formId, 'q12_student')) missing.push('第12题：考虑的专业方向（至少选1项）');
@@ -273,6 +275,8 @@ function submitStudent() {
   }
 
   var data = collectFormData('student-form');
+  // 感官耐受度为选填，未选时设为 null
+  if (!data.q9_sensory) { data.q9_sensory = null; }
   ALL_DATA.student = data;
   localStorage.setItem('qa_student', JSON.stringify(data));
   localStorage.setItem('qa_phase', 'holland');
@@ -338,6 +342,14 @@ function hollandAnswer(score, direction) {
     hollandIndex++;
     renderHollandQuestion();
   }, 250);
+}
+
+function hollandPrev() {
+  if (hollandAnswers.length === 0) return;
+  var last = hollandAnswers.pop();
+  hollandScores[last.type] -= last.score;
+  hollandIndex--;
+  renderHollandQuestion();
 }
 
 function finishHollandQuiz() {
@@ -486,16 +498,87 @@ function renderRadarChart(scores) {
 }
 
 // ==================== DOWNLOAD ====================
+function remapData(raw, mapping) {
+  var result = {};
+  for (var i = 0; i < mapping.length; i++) {
+    var m = mapping[i];
+    var key = m[0];
+    var sourceKey = m[1];
+    var type = m[2]; // 'radio' | 'checkbox' | 'grid' | 'eval' | 'text' | 'raw'
+    var val = raw[sourceKey];
+
+    if (type === 'eval') {
+      // Eval sub-keys: pass array of sub-keys to extract
+      var subKeys = m[3];
+      if (subKeys) {
+        var evalObj = {};
+        for (var ek = 0; ek < subKeys.length; ek++) {
+          if (raw['q8_eval'] && raw['q8_eval'][subKeys[ek]] !== undefined) {
+            evalObj[subKeys[ek]] = raw['q8_eval'][subKeys[ek]];
+          }
+        }
+        if (Object.keys(evalObj).length > 0) { result[key] = evalObj; }
+      }
+    } else if (type === 'null_if_missing') {
+      result[key] = (val === undefined) ? null : val;
+    } else if (val !== undefined) {
+      result[key] = val;
+    } else {
+      result[key] = null;
+    }
+  }
+  return result;
+}
+
+var PARENT_KEY_MAP = [
+  ['q01_发展路径偏好',    'q1_parent',     'radio'],
+  ['q02_风险承受能力',    'q2_parent',     'radio'],
+  ['q03_面子与实惠',      'q3_parent',     'radio'],
+  ['q04_学历支撑上限',    'q4_parent',     'radio'],
+  ['q05_考公备考容忍度',  'q5_parent',     'radio'],
+  ['q06_专业方向',        'q12_parent',    'checkbox'],
+  ['q06_其他专业',        'q12_other_parent', 'text'],
+  ['q07_最看重特质',      'q13_parent',    'radio'],
+  ['q08_焦虑担心',        'q14_parent',    'text']
+];
+
+var STUDENT_KEY_MAP = [
+  ['q01_性别',            'q0_1_gender',       'radio'],
+  ['q02_分数层次定位',    'q0_2_score_tier',   'radio'],
+  ['q03_发展路径偏好',    'q_s1_path',         'radio'],
+  ['q04_风险承受能力',    'q_s2_risk',         'radio'],
+  ['q05_面子与实惠',      'q_s3_face',         'radio'],
+  ['q06_喜欢学科',        'q6_like',           'grid'],
+  ['q06_喜欢理由',        'q6_reason',         'text'],
+  ['q07_排斥学科',        'q7_dislike',        'grid'],
+  ['q07_排斥原因',        'q7_reason',         'text'],
+  ['q08_学科能力自评',    'q8_eval',           'eval', ['q8_math','q8_physics','q8_chemistry','q8_english']],
+  ['q09_感官耐受度',      'q9_sensory',        'null_if_missing'],
+  ['q10_活动角色',        'q10_role',          'radio'],
+  ['q11_细节耐受度',      'q11_detail',        'radio'],
+  ['q12_专业方向',        'q12_student',       'checkbox'],
+  ['q12_其他专业',        'q12_other_student', 'text'],
+  ['q13_最看重特质',      'q13_student',       'radio'],
+  ['q14_焦虑担心',        'q14_student',       'text']
+];
+
 function downloadResult() {
+  var parentClean = remapData(ALL_DATA.parent, PARENT_KEY_MAP);
+  var studentClean = remapData(ALL_DATA.student, STUDENT_KEY_MAP);
+
   var exportData = {
     meta: {
       version: '1.0',
       date: new Date().toISOString(),
       title: '2026年高考志愿·家庭决策体检问卷'
     },
-    parent: ALL_DATA.parent,
-    student: ALL_DATA.student,
-    holland: ALL_DATA.holland
+    parent: parentClean,
+    student: studentClean,
+    model36: {
+      name: '多维度专业适配度阻断模型',
+      scores: ALL_DATA.holland.scores,
+      answers: ALL_DATA.holland.answers
+    }
   };
 
   var jsonStr = JSON.stringify(exportData, null, '  ');
@@ -637,6 +720,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   document.getElementById('btn-yes').addEventListener('click', function () {
     hollandAnswer(2, 'right');
+  });
+
+  // Previous question button
+  document.getElementById('btn-prev').addEventListener('click', function () {
+    hollandPrev();
   });
 
   // Download button
